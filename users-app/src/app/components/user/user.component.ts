@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { User } from '../../models/user';
 
 @Component({
@@ -8,4 +8,14 @@ import { User } from '../../models/user';
 })
 export class UserComponent {
   @Input() users: User[] = [];
+
+  @Output() idUserEventEmitter = new EventEmitter();
+
+  onRemoveUser(id: number): void{
+
+    const confirmRemove = confirm('Esta seguro que desea eliminar?');
+    if(confirmRemove){
+      this.idUserEventEmitter.emit(id);
+    }
+  }
 }
