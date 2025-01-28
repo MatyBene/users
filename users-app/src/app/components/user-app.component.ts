@@ -15,7 +15,11 @@ export class UserAppComponent implements OnInit {
 
   users: User[] = [];
 
-  constructor(private service: UserService) {}
+  userSelected: User;
+
+  constructor(private service: UserService) {
+    this.userSelected = new User();
+  }
 
   ngOnInit(): void {
     this.service.findAll().subscribe(users => this.users = users);
@@ -27,5 +31,9 @@ export class UserAppComponent implements OnInit {
 
   removeUser(id: number): void{
     this.users = this.users.filter(user => user.id != id);
+  }
+
+  setSelectedUser(userRow: User): void{
+    this.userSelected = {... userRow};
   }
 }
