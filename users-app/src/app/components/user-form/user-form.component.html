@@ -18,7 +18,7 @@
     </div>
     <div>
         <input 
-            placeholder="LastName"
+            placeholder="Last name"
             name="lastName"
             [(ngModel)] = "user.lastName"
             class="form-control my-2"
@@ -59,7 +59,7 @@
     </div>
     <div>
         <input 
-            placeholder="UserName"
+            placeholder="Username"
             name="userName"
             [(ngModel)] = "user.userName"
             class="form-control my-2"
@@ -107,10 +107,17 @@
 
     <div>
         <button 
-            type="submit" 
-            class="btn btn-primary my-2" 
-            [disabled]="userForm.invalid">
-            Create
+        type="submit" 
+        class="btn btn-primary my-2" 
+        [disabled]="userForm.invalid">
+            {{(user.id > 0) ? 'Update' : 'Create'}}
+        </button>
+
+        <button 
+        type="button" 
+        class="btn btn-secondary m-2"
+        (click)="onClear(userForm)">
+            Clear
         </button>
     </div>
 </form>

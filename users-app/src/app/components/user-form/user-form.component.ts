@@ -22,6 +22,14 @@ export class UserFormComponent {
       this.newUserEventEmitter.emit(this.user);
       console.log(this.user);
     }
+
+    userForm.reset();
+    userForm.resetForm();
+  }
+
+  onClear(userForm: NgForm): void{
+    this.user = new User();
+
     userForm.reset();
     userForm.resetForm();
   }
