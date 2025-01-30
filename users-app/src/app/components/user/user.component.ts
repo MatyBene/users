@@ -7,6 +7,9 @@ import { User } from '../../models/user';
   templateUrl: './user.component.html'
 })
 export class UserComponent {
+
+  title: string = 'Listado de usuarios';
+  
   @Input() users: User[] = [];
 
   @Output() idUserEventEmitter = new EventEmitter();
