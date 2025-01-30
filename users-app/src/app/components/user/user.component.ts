@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { User } from '../../models/user';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'user',
@@ -11,11 +11,15 @@ export class UserComponent {
 
   title: string = 'Listado de usuarios';
   
-  @Input() users: User[] = [];
+  users: User[] = [];
 
-  @Output() idUserEventEmitter = new EventEmitter();
+  idUserEventEmitter = new EventEmitter();
 
-  @Output() selectedUserEventEmitter = new EventEmitter();
+  selectedUserEventEmitter = new EventEmitter();
+
+  constructor(private router: Router){
+    this.users = this.router.getCurrentNavigation()?.extras.state!['users']
+  }
 
   onRemoveUser(id: number): void{
     this.idUserEventEmitter.emit(id);
