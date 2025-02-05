@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(originPatterns = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
