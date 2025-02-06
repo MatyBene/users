@@ -8,6 +8,7 @@ import { SharingDataService } from '../services/sharing-data.service';
 
 @Component({
   selector: 'user-app',
+  standalone: true,
   imports: [RouterOutlet, NavbarComponent],
   templateUrl: './user-app.component.html',
   styleUrls: ['./user-app.component.css']
@@ -27,26 +28,32 @@ export class UserAppComponent implements OnInit {
   }
 
   findUserById(){
-    this.sharingData.findUserByIdEvenEmitter.subscribe(id => {
+    this.sharingData.findUserByIdEventEmitter.subscribe(id => {
       const user = this.users.find(user => user.id == id);
 
       this.sharingData.selectUserEventEmitter.emit(user);
     })
   }
   
-  addUser(){
+  addUser() {
     this.sharingData.newUserEventEmitter.subscribe(user => {
-      if(user.id > 0){
-        this.users = this.users.map(u => (u.id == user.id) ? {... user} : u);
-      } else {
-        this.users = [... this.users, { ... user, id: new Date().getTime() }];
-      }
+      if (user.id > 0) {
+        this.service.update(user).subscribe(userUpdated => {
+          this.users = this.users.map(u => (u.id == userUpdated.id) ? { ...userUpdated } : u);
+          this.router.navigate(['/users'], {state: {users: this.users}});
+        })
 
-      this.router.navigate(['/users'], {state: {users: this.users}});
-  
+      } else {
+        this.service.create(user).subscribe(userNew => {
+          console.log(user)
+          this.users = [... this.users, { ...userNew }];
+
+          this.router.navigate(['/users'], {state: {users: this.users}});
+        })
+      }
       Swal.fire({
-        title: "Guardado",
-        text: "Usuario guardado con exito",
+        title: "Guardado!",
+        text: "Usuario guardado con exito!",
         icon: "success"
       });
     })

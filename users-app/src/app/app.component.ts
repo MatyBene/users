@@ -4,6 +4,7 @@ import { UserAppComponent } from './components/user-app.component';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, UserAppComponent],
   templateUrl: './app.component.html',
 })

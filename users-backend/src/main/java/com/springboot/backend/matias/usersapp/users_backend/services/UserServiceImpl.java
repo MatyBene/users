@@ -3,6 +3,7 @@ package com.springboot.backend.matias.usersapp.users_backend.services;
 import com.springboot.backend.matias.usersapp.users_backend.entities.User;
 import com.springboot.backend.matias.usersapp.users_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +13,7 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-//    @Autowired //Si tengo el constructor no es necesario el autowired
+//    @Autowired // Si tengo el constructor no es necesario el autowired
     private UserRepository repository;
 
     public UserServiceImpl(UserRepository repository) {
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(@NonNull Long id) {
         return this.repository.findById(id);
     }
 

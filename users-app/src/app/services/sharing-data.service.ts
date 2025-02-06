@@ -10,12 +10,21 @@ export class SharingDataService {
 
   private _idUserEventEmitter = new EventEmitter();
 
-  private _findUserByIdEvenEmitter = new EventEmitter();
+  private _findUserByIdEventEmitter = new EventEmitter();
 
   private _selectUserEventEmitter = new EventEmitter();
+
   constructor() { }
 
-  get newUserEventEmitter(): EventEmitter<User>{
+  get selectUserEventEmitter() {
+    return this._selectUserEventEmitter;
+  }
+  
+  get findUserByIdEventEmitter() {
+    return this._findUserByIdEventEmitter;
+  }
+
+  get newUserEventEmitter(): EventEmitter<User> {
     return this._newUserEventEmitter;
   }
 
@@ -23,11 +32,5 @@ export class SharingDataService {
     return this._idUserEventEmitter;
   }
 
-  get findUserByIdEvenEmitter(): EventEmitter<number>{
-    return this._findUserByIdEvenEmitter;
-  }
-
-  get selectUserEventEmitter(): EventEmitter<User>{
-    return this._selectUserEventEmitter;
-  }
+  
 }

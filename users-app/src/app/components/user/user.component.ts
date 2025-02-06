@@ -6,6 +6,7 @@ import { SharingDataService } from '../../services/sharing-data.service';
 
 @Component({
   selector: 'user',
+  standalone: true,
   imports: [RouterModule],
   templateUrl: './user.component.html'
 })
@@ -18,7 +19,12 @@ export class UserComponent {
   constructor(private service: UserService, private router: Router, private sharingData: SharingDataService){
     if(this.router.getCurrentNavigation()?.extras.state){
       this.users = this.router.getCurrentNavigation()?.extras.state!['users'];
-    } else {
+    }
+  }
+
+  ngOnInit(): void {
+    if (this.users == undefined || this.users == null || this.users.length == 0) {
+      console.log('consulta findAll')
       this.service.findAll().subscribe(users => this.users = users);
     }
   }
@@ -27,7 +33,7 @@ export class UserComponent {
     this.sharingData.idUserEventEmitter.emit(id);
   }
 
-  onSelectedUser(user: User): void{
-    this.router.navigate(['/users/edit', user.id], {state: {user}});
+  onSelectedUser(user: User): void {
+    this.router.navigate(['/users/edit', user.id]);
   }
 }

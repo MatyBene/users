@@ -20,12 +20,12 @@ public class UserController {
     private UserService service;
 
     @GetMapping
-    public List<User> list(){
+    public List<User> list() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> showById(@PathVariable Long id){
+    public ResponseEntity<?> show(@PathVariable Long id){
         Optional<User> userOptional = service.findById(id);
 
         if(userOptional.isPresent()){
@@ -36,11 +36,12 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody User user){
+    public ResponseEntity<User> create(@RequestBody User user) {
+        user.setId(null);
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(user));
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user){
         Optional<User> userOptional = service.findById(id);
 
