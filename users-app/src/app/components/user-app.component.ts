@@ -71,11 +71,14 @@ export class UserAppComponent implements OnInit {
         confirmButtonText: "Si!"
       }).then((result) => {
         if (result.isConfirmed) {
-          this.users = this.users.filter(user => user.id != id);
 
-          this.router.navigate(['/users/create'], {skipLocationChange: true}).then(() => {
-            this.router.navigate(['/users'], {state: {users: this.users}});
-          });
+          this.service.remove(id).subscribe(() => {
+            this.users = this.users.filter(user => user.id != id);
+  
+            this.router.navigate(['/users/create'], {skipLocationChange: true}).then(() => {
+              this.router.navigate(['/users'], {state: {users: this.users}});
+            });
+          })
   
           Swal.fire({
             title: "Eliminado!",

@@ -1,6 +1,10 @@
 package com.springboot.backend.matias.usersapp.users_backend.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 import static jakarta.persistence.GenerationType.*;
 
@@ -11,11 +15,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
+    @NotBlank
     private String name;
 //    @Column(name = "last_name") se indica el nombre de como esta en la bdd
+    @NotBlank
     private String lastName;
+    @NotEmpty
+    @Email
     private String email;
+    @NotBlank
+    @Size(min = 4, max = 12)
     private String userName;
+    @NotBlank
     private String password;
 
     public Long getId() {
