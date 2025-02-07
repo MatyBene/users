@@ -43,9 +43,18 @@ export class UserAppComponent implements OnInit {
             next: (userUpdated) => {
               this.users = this.users.map(u => (u.id == userUpdated.id) ? { ...userUpdated } : u);
               this.router.navigate(['/users'], {state: {users: this.users}});
+
+              Swal.fire({
+                title: "Actualizado nuevo usuario!",
+                text: "Usuario editado con exito!",
+                icon: "success"
+              });
             },
             error: (err) => {
-              console.log(err.error)
+              // console.log(err.error)
+              if(err.status == 400){
+                this.sharingData.errorsUserFormEventEmitter.emit(err.error);
+              }
             }
           })
 
@@ -57,17 +66,21 @@ export class UserAppComponent implements OnInit {
               this.users = [... this.users, { ...userNew }];
 
               this.router.navigate(['/users'], {state: {users: this.users}});
+
+              Swal.fire({
+                title: "Creado nuevo usuario!",
+                text: "Usuario creado con exito!",
+                icon: "success"
+              });
             },
             error: (err) => {
-              console.log(err.error);
+              // console.log(err.error)
+              if(err.status == 400){
+                this.sharingData.errorsUserFormEventEmitter.emit(err.error);
+              }
             }
           })
       }
-      Swal.fire({
-        title: "Guardado!",
-        text: "Usuario guardado con exito!",
-        icon: "success"
-      });
     })
   }
 
