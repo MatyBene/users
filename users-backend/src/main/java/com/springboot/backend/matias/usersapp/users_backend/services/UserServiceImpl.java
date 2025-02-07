@@ -3,6 +3,8 @@ package com.springboot.backend.matias.usersapp.users_backend.services;
 import com.springboot.backend.matias.usersapp.users_backend.entities.User;
 import com.springboot.backend.matias.usersapp.users_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return (List<User>) this.repository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<User> findAll(Pageable pageable) {
+        return this.repository.findAll(pageable);
     }
 
     @Transactional(readOnly = true)
