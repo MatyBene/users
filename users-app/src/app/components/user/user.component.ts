@@ -1,6 +1,6 @@
 import { Component, EventEmitter } from '@angular/core';
 import { User } from '../../models/user';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { SharingDataService } from '../../services/sharing-data.service';
 
@@ -16,7 +16,11 @@ export class UserComponent {
   
   users: User[] = [];
 
-  constructor(private service: UserService, private router: Router, private sharingData: SharingDataService){
+  constructor(
+    private service: UserService, 
+    private router: Router, 
+    private sharingData: SharingDataService,
+    private route: ActivatedRoute){
     if(this.router.getCurrentNavigation()?.extras.state){
       this.users = this.router.getCurrentNavigation()?.extras.state!['users'];
     }
@@ -25,8 +29,15 @@ export class UserComponent {
   ngOnInit(): void {
     if (this.users == undefined || this.users == null || this.users.length == 0) {
       console.log('consulta findAll')
-      this.service.findAll().subscribe(users => this.users = users);
+      // this.service.findAll().subscribe(users => this.users = users);
+      this.route.paramMap.subscribe(params => {
+        const page = +(params.get('page') || '0');
+  
+        this.service.findAllPageable(page).subscribe(pageable => this.users = pageable.content as User[]);
+      });
     }
+
+
   }
 
   onRemoveUser(id: number): void{
