@@ -32,8 +32,13 @@ export class UserComponent {
       // this.service.findAll().subscribe(users => this.users = users);
       this.route.paramMap.subscribe(params => {
         const page = +(params.get('page') || '0');
+
+        console.log(page);
   
-        this.service.findAllPageable(page).subscribe(pageable => this.users = pageable.content as User[]);
+        this.service.findAllPageable(page).subscribe(pageable => {
+          this.users = pageable.content as User[];
+          this.sharingData.pageUsersEventEmitter.emit(this.users);
+        });
       });
     }
 
