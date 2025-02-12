@@ -16,6 +16,8 @@ import { SharingDataService } from '../services/sharing-data.service';
 export class UserAppComponent implements OnInit {
 
   users: User[] = [];
+  
+  paginator: any = {};
 
   constructor(
     private service: UserService, 
@@ -42,7 +44,10 @@ export class UserAppComponent implements OnInit {
   }
 
   pageUsersEvent(){
-    this.sharingData.pageUsersEventEmitter.subscribe(users => this.users = users);
+    this.sharingData.pageUsersEventEmitter.subscribe(pageable => {
+      this.users = pageable.users;
+      this.paginator = pageable.paginator
+    });
   }
 
   findUserById(){

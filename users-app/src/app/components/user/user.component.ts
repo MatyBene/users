@@ -3,18 +3,23 @@ import { User } from '../../models/user';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { SharingDataService } from '../../services/sharing-data.service';
+import { PaginatorComponent } from '../paginator/paginator.component';
 
 @Component({
   selector: 'user',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, PaginatorComponent],
   templateUrl: './user.component.html'
 })
 export class UserComponent {
 
   title: string = 'Listado de usuarios';
   
+  pageUrl: string = '/users/page';
+  
   users: User[] = [];
+
+  paginator: any = {};
 
   constructor(
     private service: UserService, 
@@ -37,7 +42,8 @@ export class UserComponent {
   
         this.service.findAllPageable(page).subscribe(pageable => {
           this.users = pageable.content as User[];
-          this.sharingData.pageUsersEventEmitter.emit(this.users);
+          this.paginator = pageable;
+          this.sharingData.pageUsersEventEmitter.emit({users: this.users, paginator: this.paginator});
         });
       });
     }
