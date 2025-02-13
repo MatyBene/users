@@ -28,6 +28,7 @@ export class UserComponent {
     private route: ActivatedRoute){
     if(this.router.getCurrentNavigation()?.extras.state){
       this.users = this.router.getCurrentNavigation()?.extras.state!['users'];
+      this.paginator = this.router.getCurrentNavigation()?.extras.state!['paginator'];
     }
   }
 
