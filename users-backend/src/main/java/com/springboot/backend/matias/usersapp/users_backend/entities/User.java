@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 import static jakarta.persistence.GenerationType.*;
 
 @Entity
@@ -28,6 +30,8 @@ public class User {
     private String userName;
     @NotBlank
     private String password;
+
+    private List<Role> roles;
 
     public Long getId() {
         return id;
