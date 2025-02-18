@@ -67,7 +67,7 @@ public class UserController {
             userDB.setName(user.getName());
             userDB.setLastName(user.getLastName());
             userDB.setEmail(user.getEmail());
-            userDB.setUserName(user.getUserName());
+            userDB.setUsername(user.getUsername());
             userDB.setPassword(user.getPassword());
 
             return ResponseEntity.ok(service.save(userDB));

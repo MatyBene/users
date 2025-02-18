@@ -29,7 +29,7 @@ public class User {
     private String email;
     @NotBlank
     @Size(min = 4, max = 12)
-    private String userName;
+    private String username;
     @NotBlank
     private String password;
     @JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
@@ -78,12 +78,12 @@ public class User {
         this.email = email;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String Username) {
+        this.username = Username;
     }
 
     public String getPassword() {
