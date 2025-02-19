@@ -70,7 +70,7 @@ ng serve
 
 ## Uso
 
-Acceder a `http://localhost:4200` para usar la aplicación.
+Acceder a `http://localhost:4200` para usar la aplicación
 
 La aplicación permite:
 - Ver la lista de usuarios
